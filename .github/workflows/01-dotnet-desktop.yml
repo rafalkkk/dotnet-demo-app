@@ -7,29 +7,40 @@ on:
       - ".github/workflows/**"
       - "dotnet-demo-app/**"
   workflow_dispatch:
+
 jobs:
   build:
-    runs-on: ubuntu-latest 
+    name: Build the application job
+    runs-on: ubuntu-latest
     env:
       Solution_Name: DOTNET-DEMO-APP
 
     steps:
+    # This step uses action
     - name: Checkout
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
+    # This step uses action
     - name: Install .NET Core
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
         
+    # This step runs a command
+    - name: Check dotnet version
+      run: dotnet --version
+
+    # This step runs a command
     - name: List runtimes
       run: dotnet --list-runtimes
       
+    # This step runs a command      
     - name: List SDKs
       run: dotnet --list-sdks
       
+    # This step runs a command      
     - name: Build
       run: dotnet build
       working-directory: dotnet-demo-app
